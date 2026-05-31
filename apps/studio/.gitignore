@@ -1,0 +1,12 @@
+.output
+.nitro
+.tanstack
+.vinxi
+.vite
+node_modules
+.env
+.env.local
+*.log
+.DS_Store
+src/routeTree.gen.ts
+.agent-browser-spike

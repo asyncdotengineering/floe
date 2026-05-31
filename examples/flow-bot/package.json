@@ -1,0 +1,27 @@
+{
+  "name": "@floe/example-flow-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "start": "tsx server.ts",
+    "test:bench": "tsx test/bench.test.ts"
+  },
+  "dependencies": {
+    "@floe/runtime": "workspace:*",
+    "@floe/server-bootstrap": "workspace:*",
+    "@floe/adapter-web": "workspace:*",
+    "@hono/node-server": "^1.19.14",
+    "valibot": "^1.1.0"
+  },
+  "devDependencies": {
+    "@floe/bench-harness": "workspace:*",
+    "@types/node": "^22.10.10",
+    "tsx": "^4.22.3",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}

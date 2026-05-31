@@ -1,0 +1,52 @@
+[
+  {
+    "id": "evt_standup_w22",
+    "title": "Eng standup",
+    "start": "2026-05-25T16:00:00Z",
+    "end": "2026-05-25T16:15:00Z",
+    "attendees": ["me@acme.example", "alice@acme.example", "bob@acme.example"],
+    "location": "Zoom — standing link",
+    "description": "Daily 9a PT.",
+    "status": "confirmed"
+  },
+  {
+    "id": "evt_q3_planning",
+    "title": "Q3 planning kickoff",
+    "start": "2026-05-26T18:00:00Z",
+    "end": "2026-05-26T19:30:00Z",
+    "attendees": ["me@acme.example", "carol@acme.example", "dave@acme.example", "eve@acme.example"],
+    "location": "Room: Mariner (HQ-2)",
+    "description": "Initial scoping for the Q3 roadmap. Bring last-quarter postmortems + the top-5 user-research themes.",
+    "status": "confirmed"
+  },
+  {
+    "id": "evt_1on1_carol",
+    "title": "1:1 with Carol",
+    "start": "2026-05-27T20:00:00Z",
+    "end": "2026-05-27T20:30:00Z",
+    "attendees": ["me@acme.example", "carol@acme.example"],
+    "location": "Zoom",
+    "description": "Weekly. Agenda: shipping milestones, blockers, career arc.",
+    "status": "confirmed"
+  },
+  {
+    "id": "evt_design_review",
+    "title": "Design review — pricing-page redesign",
+    "start": "2026-05-28T17:00:00Z",
+    "end": "2026-05-28T18:00:00Z",
+    "attendees": ["me@acme.example", "dave@acme.example", "alice@acme.example"],
+    "location": "Figma + Zoom",
+    "description": "Walk-through of the v3 pricing-page mocks. Decide on the comparison table format.",
+    "status": "confirmed"
+  },
+  {
+    "id": "evt_focus_block",
+    "title": "Focus block — Q3 doc draft",
+    "start": "2026-05-29T15:00:00Z",
+    "end": "2026-05-29T18:00:00Z",
+    "attendees": ["me@acme.example"],
+    "location": "(none)",
+    "description": "No meetings. Heads-down on the Q3 strategy doc.",
+    "status": "confirmed"
+  }
+]

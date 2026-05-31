@@ -1,0 +1,74 @@
+{
+  "name": "@floe/runtime",
+  "version": "0.1.0",
+  "description": "Conversational harness on top of Flue. Runtime composition for chat + voice agents.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./internal": "./src/internal.ts",
+    "./cloudflare": "./src/cloudflare.ts",
+    "./validators": "./src/validators/index.ts",
+    "./chunkers": "./src/chunkers/index.ts",
+    "./embedders": "./src/embedders/index.ts",
+    "./embedders/openai": "./src/embedders/openai.ts",
+    "./embedders/workers-ai": "./src/embedders/workers-ai.ts",
+    "./embedders/ai-sdk": "./src/embedders/ai-sdk.ts",
+    "./embedders/fake": "./src/embedders/fake.ts",
+    "./vectorstores": "./src/vectorstores/index.ts",
+    "./vectorstores/in-memory": "./src/vectorstores/in-memory.ts",
+    "./vectorstores/d1": "./src/vectorstores/d1.ts",
+    "./vectorstores/vectorize": "./src/vectorstores/vectorize.ts",
+    "./vectorstores/pgvector": "./src/vectorstores/pgvector.ts",
+    "./vectorstores/libsql": "./src/vectorstores/libsql.ts",
+    "./vectorstores/redis": "./src/vectorstores/redis.ts",
+    "./vectorstores/lancedb": "./src/vectorstores/lancedb.ts",
+    "./rerankers": "./src/rerankers/index.ts",
+    "./rerankers/llm-judge": "./src/rerankers/llm-judge.ts",
+    "./knowledge/workspace-bm25": "./src/knowledge/workspace-bm25.ts",
+    "./knowledge/hybrid": "./src/knowledge/hybrid.ts",
+    "./memory": "./src/memory/index.ts",
+    "./memory/vector-store-service": "./src/memory/vector-store-service.ts",
+    "./observability": "./src/observability/index.ts",
+    "./reliability": "./src/reliability/index.ts",
+    "./eval": "./src/eval/index.ts",
+    "./openai-compat": "./src/openai-compat/index.ts",
+    "./sandbox/local": "./src/sandbox/local.ts",
+    "./sandbox/cf-bash": "./src/sandbox/cf-bash.ts",
+    "./sandbox/none": "./src/sandbox/none.ts",
+    "./mcp": "./src/mcp/index.ts",
+    "./testing": "./src/testing/index.ts"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@earendil-works/pi-ai": "0.75.4",
+    "@flue/runtime": "^0.7.0",
+    "valibot": "^1.1.0"
+  },
+  "peerDependencies": {
+    "just-bash": "*"
+  },
+  "peerDependenciesMeta": {
+    "just-bash": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.6"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}

@@ -1,0 +1,44 @@
+# Fly.io deploy config for templates/ops-bot.
+#
+# Usage from the monorepo root:
+#   fly apps create floe-ops-bot      # one-time
+#   fly secrets set OPENAI_API_KEY=$OPENAI_API_KEY -a floe-ops-bot
+#   fly deploy -c templates/ops-bot/fly.toml --dockerfile templates/ops-bot/Dockerfile
+#
+# The container's PORT is set by Fly (8080 by default); ops-bot's
+# `runServer()` reads it. Mock MCPs (Okta/Notion/Linear) run in the
+# same Node process on internal ports 4001-4003 and aren't exposed.
+
+app = "floe-ops-bot"
+primary_region = "sin"          # change to your nearest Fly region
+kill_signal = "SIGTERM"
+kill_timeout = "10s"
+
+# Dockerfile is passed via `fly deploy --dockerfile templates/ops-bot/Dockerfile`
+# so we don't set [build].dockerfile here (would be resolved relative to
+# the config-file dir and double-prefix the path).
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+  # Default model — override with `fly secrets set FLOE_MODEL=...`.
+  FLOE_MODEL = "openai/gpt-4.1-mini"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "suspend"      # spin down when idle (cost saver)
+  auto_start_machines = true           # wake on first request
+  min_machines_running = 0
+  processes = ["app"]
+
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 50
+    hard_limit = 100
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "msg_q3_kickoff",
+    "from": "carol@acme.example",
+    "to": ["me@acme.example"],
+    "cc": ["eve@acme.example"],
+    "subject": "Re: Q3 planning kickoff prep",
+    "snippet": "Quick ask — before Tuesday's kickoff, can you pull the top-5 user-research themes from the May synthesis doc? I want us to start from real evidence, not gut takes.",
+    "body": "Quick ask — before Tuesday's kickoff, can you pull the top-5 user-research themes from the May synthesis doc? I want us to start from real evidence, not gut takes.\n\nIf any of them are also tracked in Linear, can you link the corresponding tickets? That'll save us 30 min in the meeting.\n\nThanks!\n\nC.",
+    "receivedAt": "2026-05-23T18:30:00Z",
+    "isRead": false,
+    "isStarred": true,
+    "labels": ["work", "q3-planning", "needs-reply"]
+  },
+  {
+    "id": "msg_design_review",
+    "from": "dave@acme.example",
+    "to": ["me@acme.example", "alice@acme.example"],
+    "cc": [],
+    "subject": "Pricing page v3 — design review Thursday",
+    "snippet": "I posted the v3 mocks in Figma. Big question for the review: do we land the comparison table as a true HTML grid, or as separate cards stacked on mobile?",
+    "body": "Hey team —\n\nI posted the v3 mocks in Figma: figma.example/pricing-v3\n\nBig question for the review on Thursday: do we land the comparison table as a true HTML grid (good for SEO + a11y) or as separate cards that stack on mobile (better visual hierarchy but harder to scan side-by-side)?\n\nI'm leaning grid + a cards-only mobile breakpoint, but want to hear the eng take before we lock.\n\n— Dave",
+    "receivedAt": "2026-05-22T14:15:00Z",
+    "isRead": true,
+    "isStarred": false,
+    "labels": ["work", "design", "needs-reply"]
+  },
+  {
+    "id": "msg_security_patch",
+    "from": "alice@acme.example",
+    "to": ["eng-team@acme.example"],
+    "cc": [],
+    "subject": "Tailwind v4.1 patch — please upgrade by Friday",
+    "snippet": "Heads up — Tailwind v4.1.2 fixes a class-cache invalidation bug we were seeing in CI. Please bump on your branches by EOD Friday.",
+    "body": "Heads up — Tailwind v4.1.2 fixes a class-cache invalidation bug we were seeing in CI. Please bump on your branches by EOD Friday.\n\nOne line: `npm i tailwindcss@4.1.2`\n\nRun your snapshot tests after — there's a tiny diff in how `@apply` resolves arbitrary values now. Nothing user-visible.\n\nA.",
+    "receivedAt": "2026-05-22T09:00:00Z",
+    "isRead": true,
+    "isStarred": false,
+    "labels": ["work", "infra"]
+  },
+  {
+    "id": "msg_paris_dinner",
+    "from": "jess@personal.example",
+    "to": ["me@personal.example"],
+    "cc": [],
+    "subject": "Paris in July — pick a dinner spot?",
+    "snippet": "OK we're locked in for the 12-18. I made a shortlist of dinner spots — could you take a look this weekend and pick 2-3?",
+    "body": "OK we're locked in for the 12-18. I made a shortlist of dinner spots — could you take a look this weekend and pick 2-3? List is in the shared Notion page.\n\n💛",
+    "receivedAt": "2026-05-21T19:45:00Z",
+    "isRead": true,
+    "isStarred": true,
+    "labels": ["personal", "travel"]
+  },
+  {
+    "id": "msg_recruiter",
+    "from": "noreply@recruiter.example",
+    "to": ["me@personal.example"],
+    "cc": [],
+    "subject": "Senior Eng role at <stealth startup>",
+    "snippet": "Hi! Got your profile from a mutual connection. Quick chat?",
+    "body": "Hi! Got your profile from a mutual connection. Quick chat?\n\n[unsubscribe link]",
+    "receivedAt": "2026-05-21T15:10:00Z",
+    "isRead": false,
+    "isStarred": false,
+    "labels": ["personal", "recruiting"]
+  }
+]

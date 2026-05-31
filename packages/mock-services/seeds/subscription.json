@@ -1,0 +1,44 @@
+[
+  {
+    "id": "sub_alice_001",
+    "userId": "u_alice",
+    "email": "alice@example.com",
+    "plan": "family-4",
+    "pricePerWeek": 84,
+    "status": "active",
+    "nextDeliveryDate": "2026-05-30",
+    "skippedWeeks": [],
+    "address": "123 Maple Ave, San Francisco, CA 94110",
+    "deliveryWindow": "Sat 8a-12p",
+    "lastChargedAt": "2026-05-23T05:00:00Z",
+    "preferences": { "spice": "mild", "allergens": ["peanut"], "dietary": ["vegetarian"] }
+  },
+  {
+    "id": "sub_bob_002",
+    "userId": "u_bob",
+    "email": "bob@example.com",
+    "plan": "couples-3",
+    "pricePerWeek": 56,
+    "status": "active",
+    "nextDeliveryDate": "2026-05-29",
+    "skippedWeeks": ["2026-05-15"],
+    "address": "57 Oak St, Brooklyn, NY 11215",
+    "deliveryWindow": "Fri 4p-8p",
+    "lastChargedAt": "2026-05-22T05:00:00Z",
+    "preferences": { "spice": "medium", "allergens": [], "dietary": [] }
+  },
+  {
+    "id": "sub_carol_003",
+    "userId": "u_carol",
+    "email": "carol@example.com",
+    "plan": "single-2",
+    "pricePerWeek": 42,
+    "status": "paused",
+    "nextDeliveryDate": null,
+    "skippedWeeks": [],
+    "address": "9 Elm Pl, Austin, TX 78704",
+    "deliveryWindow": "Sun 9a-1p",
+    "lastChargedAt": "2026-04-15T05:00:00Z",
+    "preferences": { "spice": "hot", "allergens": ["shellfish"], "dietary": [] }
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    "agents/**/*",
+    "flows/**/*",
+    "lib/**/*",
+    "procedures/**/*",
+    "knowledge/**/*",
+    "api/**/*",
+    "test/**/*",
+    "bin/**/*",
+    "floe.config.ts",
+    "server.ts"
+  ]
+}

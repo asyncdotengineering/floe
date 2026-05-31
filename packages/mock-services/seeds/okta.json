@@ -1,0 +1,52 @@
+[
+  {
+    "id": "u_alice",
+    "email": "alice@acme.example",
+    "displayName": "Alice Chen",
+    "department": "Engineering",
+    "title": "Staff Engineer",
+    "manager": "u_bob",
+    "groups": ["g_eng", "g_oncall", "g_staging-readwrite"],
+    "status": "active"
+  },
+  {
+    "id": "u_bob",
+    "email": "bob@acme.example",
+    "displayName": "Bob Sutton",
+    "department": "Engineering",
+    "title": "Engineering Manager",
+    "manager": "u_carol",
+    "groups": ["g_eng", "g_managers"],
+    "status": "active"
+  },
+  {
+    "id": "u_carol",
+    "email": "carol@acme.example",
+    "displayName": "Carol Marsh",
+    "department": "Engineering",
+    "title": "Director of Engineering",
+    "manager": null,
+    "groups": ["g_eng", "g_managers", "g_directors"],
+    "status": "active"
+  },
+  {
+    "id": "u_dave",
+    "email": "dave@acme.example",
+    "displayName": "Dave Liu",
+    "department": "Sales",
+    "title": "Account Executive",
+    "manager": "u_eve",
+    "groups": ["g_sales"],
+    "status": "active"
+  },
+  {
+    "id": "u_eve",
+    "email": "eve@acme.example",
+    "displayName": "Eve Patel",
+    "department": "Sales",
+    "title": "Sales Director",
+    "manager": null,
+    "groups": ["g_sales", "g_managers", "g_directors"],
+    "status": "active"
+  }
+]

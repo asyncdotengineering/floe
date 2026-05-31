@@ -1,0 +1,35 @@
+[
+  {
+    "id": "rx_chen_lisinopril",
+    "patientId": "p_chen_amy",
+    "medication": "lisinopril 10mg",
+    "prescriber": "dr-chen-l",
+    "writtenOn": "2026-02-14",
+    "refillsRemaining": 3,
+    "lastFilledAt": "2026-04-20T16:00:00Z",
+    "pharmacy": "CVS — 24th & Mission",
+    "status": "active"
+  },
+  {
+    "id": "rx_rivera_metformin",
+    "patientId": "p_rivera_jose",
+    "medication": "metformin 500mg",
+    "prescriber": "dr-park-h",
+    "writtenOn": "2026-01-30",
+    "refillsRemaining": 5,
+    "lastFilledAt": "2026-05-01T11:00:00Z",
+    "pharmacy": "Walgreens — Cesar Chavez",
+    "status": "active"
+  },
+  {
+    "id": "rx_rivera_atorvastatin",
+    "patientId": "p_rivera_jose",
+    "medication": "atorvastatin 20mg",
+    "prescriber": "dr-park-h",
+    "writtenOn": "2026-01-30",
+    "refillsRemaining": 0,
+    "lastFilledAt": "2026-05-01T11:00:00Z",
+    "pharmacy": "Walgreens — Cesar Chavez",
+    "status": "needs_renewal"
+  }
+]

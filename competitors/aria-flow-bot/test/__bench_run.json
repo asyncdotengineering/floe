@@ -1,0 +1,146 @@
+{
+  "ranAt": "2026-05-22T16:15:19.485Z",
+  "model": "openai/gpt-4.1-mini",
+  "perScenario": [
+    {
+      "id": "f1-friday2",
+      "ttft": [
+        3491,
+        3849,
+        5142,
+        5984,
+        9685
+      ],
+      "end": [
+        3919,
+        4443,
+        6435,
+        10343,
+        38273
+      ],
+      "texts": [
+        "I have you down as Alice for Friday at 2:00pm. Shall I confirm the booking?",
+        "I have you down as Alice for Friday at 2:00pm. Shall I confirm the booking?",
+        "I have you down as Alice for Friday at 2:00pm. Shall I confirm the booking?",
+        "I have you down as Alice for Friday at 2:00pm. Shall I confirm the booking?",
+        "I have you down as Alice for Friday at 2:00pm. Shall I confirm the booking?"
+      ]
+    },
+    {
+      "id": "f2-monday10",
+      "ttft": [
+        3481,
+        4498,
+        7015,
+        8915,
+        13649
+      ],
+      "end": [
+        4039,
+        4924,
+        7733,
+        9520,
+        15005
+      ],
+      "texts": [
+        "I have you down as Bob for Monday at 10:00am. Shall I confirm the booking?",
+        "I have you down as Bob for Monday at 10:00am. Shall I confirm the booking?",
+        "I have you down as Bob for Monday at 10:00am. Shall I confirm the booking?",
+        "I have you down as Bob for Monday at 10:00am. Shall I confirm the booking?",
+        "I have you down as Bob for Monday at 10:00am. Shall I confirm the booking?"
+      ]
+    },
+    {
+      "id": "f3-tomorrow",
+      "ttft": [
+        3646,
+        4417,
+        4975,
+        10322,
+        16894
+      ],
+      "end": [
+        4896,
+        4969,
+        5750,
+        10655,
+        17383
+      ],
+      "texts": [
+        "I have you down as Carol for Thursday at 3:00pm. Shall I confirm the booking?",
+        "I have you down as Carol for Tomorrow at 3:00pm. Shall I confirm the booking?",
+        "I have you down as Carol for tomorrow at 3:00pm. Shall I confirm the booking?",
+        "I have you down as Carol for Thursday at 3:00pm. Shall I confirm the booking?",
+        "I have you down as Carol for tomorrow at 3:00pm. Shall I confirm the booking?"
+      ]
+    },
+    {
+      "id": "f4-eve",
+      "ttft": [
+        3089,
+        3423,
+        4441,
+        5838,
+        6781
+      ],
+      "end": [
+        3930,
+        4068,
+        4942,
+        6195,
+        7175
+      ],
+      "texts": [
+        "I have you down as Dana for Wednesday at 6:00pm. Shall I confirm the booking?",
+        "I have you down as Dana for Wednesday at 6:00pm. Shall I confirm the booking?",
+        "I have you down as Dana for Wednesday at 6:00pm. Shall I confirm the booking?",
+        "I have you down as Dana for Wednesday at 6:00pm. Shall I confirm the booking?",
+        "I have you down as Dana for Wednesday at 6:00pm. Shall I confirm the booking?"
+      ]
+    }
+  ],
+  "allTtft": [
+    3089,
+    3423,
+    3481,
+    3491,
+    3646,
+    3849,
+    4417,
+    4441,
+    4498,
+    4975,
+    5142,
+    5838,
+    5984,
+    6781,
+    7015,
+    8915,
+    9685,
+    10322,
+    13649,
+    16894
+  ],
+  "allEnd": [
+    3919,
+    3930,
+    4039,
+    4068,
+    4443,
+    4896,
+    4924,
+    4942,
+    4969,
+    5750,
+    6195,
+    6435,
+    7175,
+    7733,
+    9520,
+    10343,
+    10655,
+    15005,
+    17383,
+    38273
+  ]
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "inv_chen_2025_06",
+    "patientId": "p_chen_amy",
+    "issuedAt": "2026-05-01T00:00:00Z",
+    "amountUsd": 142.5,
+    "dueDate": "2026-06-01",
+    "status": "unpaid",
+    "insurance": {
+      "carrier": "BlueShield CA",
+      "memberId": "BS-44129-AC",
+      "copayUsd": 25
+    },
+    "lineItems": [
+      { "code": "99213", "description": "Office visit — established patient, 20-29 min", "amountUsd": 142.5 }
+    ]
+  },
+  {
+    "id": "inv_rivera_2025_05",
+    "patientId": "p_rivera_jose",
+    "issuedAt": "2026-04-15T00:00:00Z",
+    "amountUsd": 320,
+    "dueDate": "2026-05-15",
+    "status": "paid",
+    "insurance": {
+      "carrier": "Medicare",
+      "memberId": "MED-7714-JR",
+      "copayUsd": 0
+    },
+    "lineItems": [
+      { "code": "99214", "description": "Office visit — established patient, 30-39 min", "amountUsd": 200 },
+      { "code": "85025", "description": "CBC w/ differential", "amountUsd": 120 }
+    ]
+  }
+]

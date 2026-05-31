@@ -1,0 +1,924 @@
+{
+  "ranAt": "2026-05-22T15:19:48.037Z",
+  "n": 5,
+  "results": [
+    {
+      "model": "google/gemini-3.5-flash",
+      "scenarios": [
+        {
+          "scenarioId": "s1-pricing",
+          "ttftSamples": [
+            806,
+            1572,
+            1218,
+            892,
+            1028
+          ],
+          "endSamples": [
+            808,
+            1574,
+            1219,
+            896,
+            1030
+          ],
+          "deltaSamples": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "charSamples": [
+            112,
+            126,
+            113,
+            112,
+            113
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s2-integrations",
+          "ttftSamples": [
+            1133,
+            1363,
+            1230,
+            817,
+            1182
+          ],
+          "endSamples": [
+            1186,
+            2310,
+            1233,
+            820,
+            1185
+          ],
+          "deltaSamples": [
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "charSamples": [
+            274,
+            262,
+            275,
+            301,
+            302
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s3-platform",
+          "ttftSamples": [
+            1151,
+            1156,
+            787,
+            686,
+            761
+          ],
+          "endSamples": [
+            1153,
+            1158,
+            788,
+            694,
+            762
+          ],
+          "deltaSamples": [
+            3,
+            3,
+            4,
+            4,
+            3
+          ],
+          "charSamples": [
+            168,
+            123,
+            188,
+            197,
+            137
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s4-residency",
+          "ttftSamples": [
+            1080,
+            1035,
+            943,
+            1121,
+            682
+          ],
+          "endSamples": [
+            1083,
+            1085,
+            947,
+            1123,
+            683
+          ],
+          "deltaSamples": [
+            3,
+            4,
+            4,
+            3,
+            3
+          ],
+          "charSamples": [
+            150,
+            224,
+            231,
+            150,
+            144
+          ],
+          "errors": 0
+        }
+      ],
+      "overall": {
+        "ttft": {
+          "n": 20,
+          "mean": 1032,
+          "p50": 1058,
+          "p95": 1373,
+          "min": 682,
+          "max": 1572
+        },
+        "end": {
+          "n": 20,
+          "mean": 1087,
+          "p50": 1084,
+          "p95": 1611,
+          "min": 683,
+          "max": 2310
+        },
+        "errors": 0,
+        "successful": 20
+      }
+    },
+    {
+      "model": "google/gemini-3.1-flash-lite",
+      "scenarios": [
+        {
+          "scenarioId": "s1-pricing",
+          "ttftSamples": [
+            599,
+            503,
+            674,
+            468,
+            805
+          ],
+          "endSamples": [
+            604,
+            505,
+            678,
+            470,
+            806
+          ],
+          "deltaSamples": [
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "charSamples": [
+            116,
+            104,
+            104,
+            114,
+            104
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s2-integrations",
+          "ttftSamples": [
+            666,
+            586,
+            518,
+            683,
+            518
+          ],
+          "endSamples": [
+            670,
+            604,
+            520,
+            685,
+            519
+          ],
+          "deltaSamples": [
+            5,
+            4,
+            4,
+            5,
+            4
+          ],
+          "charSamples": [
+            250,
+            226,
+            197,
+            221,
+            195
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s3-platform",
+          "ttftSamples": [
+            522,
+            585,
+            664,
+            532,
+            533
+          ],
+          "endSamples": [
+            523,
+            599,
+            668,
+            533,
+            535
+          ],
+          "deltaSamples": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "charSamples": [
+            46,
+            46,
+            46,
+            46,
+            46
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s4-residency",
+          "ttftSamples": [
+            583,
+            444,
+            735,
+            567,
+            599
+          ],
+          "endSamples": [
+            584,
+            445,
+            736,
+            568,
+            600
+          ],
+          "deltaSamples": [
+            4,
+            4,
+            4,
+            3,
+            3
+          ],
+          "charSamples": [
+            133,
+            83,
+            133,
+            77,
+            77
+          ],
+          "errors": 0
+        }
+      ],
+      "overall": {
+        "ttft": {
+          "n": 20,
+          "mean": 589,
+          "p50": 584,
+          "p95": 739,
+          "min": 444,
+          "max": 805
+        },
+        "end": {
+          "n": 20,
+          "mean": 593,
+          "p50": 592,
+          "p95": 740,
+          "min": 445,
+          "max": 806
+        },
+        "errors": 0,
+        "successful": 20
+      }
+    },
+    {
+      "model": "openai/gpt-4o-mini",
+      "scenarios": [
+        {
+          "scenarioId": "s1-pricing",
+          "ttftSamples": [
+            2095,
+            2329,
+            1634,
+            22458,
+            1011
+          ],
+          "endSamples": [
+            3140,
+            3568,
+            2542,
+            24084,
+            1747
+          ],
+          "deltaSamples": [
+            51,
+            48,
+            44,
+            49,
+            50
+          ],
+          "charSamples": [
+            211,
+            197,
+            197,
+            205,
+            208
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s2-integrations",
+          "ttftSamples": [
+            1364,
+            859,
+            2156,
+            600,
+            1213
+          ],
+          "endSamples": [
+            1886,
+            1576,
+            2910,
+            1330,
+            2487
+          ],
+          "deltaSamples": [
+            40,
+            39,
+            46,
+            51,
+            51
+          ],
+          "charSamples": [
+            250,
+            177,
+            231,
+            263,
+            279
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s3-platform",
+          "ttftSamples": [
+            1652,
+            765,
+            866,
+            881,
+            884
+          ],
+          "endSamples": [
+            2039,
+            1233,
+            2919,
+            1204,
+            1504
+          ],
+          "deltaSamples": [
+            21,
+            24,
+            29,
+            19,
+            27
+          ],
+          "charSamples": [
+            104,
+            111,
+            150,
+            99,
+            141
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s4-residency",
+          "ttftSamples": [
+            882,
+            706,
+            946,
+            927,
+            1125
+          ],
+          "endSamples": [
+            1345,
+            1043,
+            1433,
+            1426,
+            1924
+          ],
+          "deltaSamples": [
+            20,
+            20,
+            20,
+            20,
+            20
+          ],
+          "charSamples": [
+            77,
+            77,
+            77,
+            77,
+            77
+          ],
+          "errors": 0
+        }
+      ],
+      "overall": {
+        "ttft": {
+          "n": 20,
+          "mean": 2268,
+          "p50": 979,
+          "p95": 3335,
+          "min": 600,
+          "max": 22458
+        },
+        "end": {
+          "n": 20,
+          "mean": 3067,
+          "p50": 1817,
+          "p95": 4594,
+          "min": 1043,
+          "max": 24084
+        },
+        "errors": 0,
+        "successful": 20
+      }
+    },
+    {
+      "model": "openai/gpt-5-mini",
+      "scenarios": [
+        {
+          "scenarioId": "s1-pricing",
+          "ttftSamples": [
+            3753,
+            5689,
+            3588,
+            3066,
+            5070
+          ],
+          "endSamples": [
+            4120,
+            7203,
+            4347,
+            3489,
+            5445
+          ],
+          "deltaSamples": [
+            27,
+            60,
+            57,
+            32,
+            27
+          ],
+          "charSamples": [
+            99,
+            253,
+            227,
+            121,
+            98
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s2-integrations",
+          "ttftSamples": [
+            5624,
+            5533,
+            5480,
+            5936,
+            5378
+          ],
+          "endSamples": [
+            6396,
+            6090,
+            6272,
+            6646,
+            6463
+          ],
+          "deltaSamples": [
+            48,
+            48,
+            51,
+            54,
+            51
+          ],
+          "charSamples": [
+            221,
+            230,
+            223,
+            240,
+            241
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s3-platform",
+          "ttftSamples": [
+            5575,
+            3950,
+            4424,
+            7857,
+            3703
+          ],
+          "endSamples": [
+            6368,
+            4512,
+            5063,
+            9054,
+            4478
+          ],
+          "deltaSamples": [
+            40,
+            43,
+            40,
+            26,
+            47
+          ],
+          "charSamples": [
+            161,
+            165,
+            160,
+            116,
+            192
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s4-residency",
+          "ttftSamples": [
+            4945,
+            4356,
+            3780,
+            7068,
+            3868
+          ],
+          "endSamples": [
+            5523,
+            4976,
+            4320,
+            9687,
+            4496
+          ],
+          "deltaSamples": [
+            41,
+            40,
+            35,
+            41,
+            42
+          ],
+          "charSamples": [
+            172,
+            167,
+            154,
+            172,
+            176
+          ],
+          "errors": 0
+        }
+      ],
+      "overall": {
+        "ttft": {
+          "n": 20,
+          "mean": 4932,
+          "p50": 5008,
+          "p95": 7107,
+          "min": 3066,
+          "max": 7857
+        },
+        "end": {
+          "n": 20,
+          "mean": 5747,
+          "p50": 5484,
+          "p95": 9086,
+          "min": 3489,
+          "max": 9687
+        },
+        "errors": 0,
+        "successful": 20
+      }
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "scenarios": [
+        {
+          "scenarioId": "s1-pricing",
+          "ttftSamples": [
+            4028,
+            3210,
+            4414,
+            4244,
+            4051
+          ],
+          "endSamples": [
+            4510,
+            3689,
+            4723,
+            4505,
+            4698
+          ],
+          "deltaSamples": [
+            55,
+            51,
+            32,
+            31,
+            65
+          ],
+          "charSamples": [
+            218,
+            192,
+            113,
+            112,
+            260
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s2-integrations",
+          "ttftSamples": [
+            9008,
+            8126,
+            5910,
+            7651,
+            10526
+          ],
+          "endSamples": [
+            9489,
+            8507,
+            6312,
+            7984,
+            11191
+          ],
+          "deltaSamples": [
+            71,
+            37,
+            48,
+            50,
+            69
+          ],
+          "charSamples": [
+            314,
+            167,
+            230,
+            246,
+            293
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s3-platform",
+          "ttftSamples": [
+            9311,
+            3061,
+            4749,
+            7560,
+            3660
+          ],
+          "endSamples": [
+            9836,
+            3413,
+            5124,
+            7870,
+            4010
+          ],
+          "deltaSamples": [
+            43,
+            37,
+            32,
+            34,
+            40
+          ],
+          "charSamples": [
+            194,
+            154,
+            132,
+            140,
+            176
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s4-residency",
+          "ttftSamples": [
+            3385,
+            4816,
+            3830,
+            4331,
+            7199
+          ],
+          "endSamples": [
+            3718,
+            5148,
+            4106,
+            4673,
+            7740
+          ],
+          "deltaSamples": [
+            49,
+            43,
+            36,
+            49,
+            49
+          ],
+          "charSamples": [
+            202,
+            176,
+            130,
+            202,
+            202
+          ],
+          "errors": 0
+        }
+      ],
+      "overall": {
+        "ttft": {
+          "n": 20,
+          "mean": 5654,
+          "p50": 4582,
+          "p95": 9372,
+          "min": 3061,
+          "max": 10526
+        },
+        "end": {
+          "n": 20,
+          "mean": 6062,
+          "p50": 4924,
+          "p95": 9904,
+          "min": 3413,
+          "max": 11191
+        },
+        "errors": 0,
+        "successful": 20
+      }
+    },
+    {
+      "model": "openai/gpt-5.4-mini",
+      "scenarios": [
+        {
+          "scenarioId": "s1-pricing",
+          "ttftSamples": [
+            636,
+            566,
+            659,
+            579,
+            568
+          ],
+          "endSamples": [
+            872,
+            711,
+            1003,
+            851,
+            854
+          ],
+          "deltaSamples": [
+            13,
+            13,
+            36,
+            13,
+            26
+          ],
+          "charSamples": [
+            46,
+            46,
+            139,
+            46,
+            93
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s2-integrations",
+          "ttftSamples": [
+            577,
+            717,
+            749,
+            686,
+            734
+          ],
+          "endSamples": [
+            900,
+            1137,
+            1127,
+            1205,
+            1244
+          ],
+          "deltaSamples": [
+            36,
+            36,
+            36,
+            44,
+            44
+          ],
+          "charSamples": [
+            154,
+            151,
+            164,
+            190,
+            200
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s3-platform",
+          "ttftSamples": [
+            854,
+            646,
+            765,
+            623,
+            630
+          ],
+          "endSamples": [
+            1320,
+            1004,
+            1091,
+            875,
+            910
+          ],
+          "deltaSamples": [
+            37,
+            40,
+            32,
+            29,
+            30
+          ],
+          "charSamples": [
+            149,
+            160,
+            152,
+            116,
+            127
+          ],
+          "errors": 0
+        },
+        {
+          "scenarioId": "s4-residency",
+          "ttftSamples": [
+            753,
+            612,
+            633,
+            649,
+            645
+          ],
+          "endSamples": [
+            1156,
+            922,
+            930,
+            962,
+            966
+          ],
+          "deltaSamples": [
+            33,
+            37,
+            42,
+            38,
+            34
+          ],
+          "charSamples": [
+            116,
+            161,
+            188,
+            166,
+            113
+          ],
+          "errors": 0
+        }
+      ],
+      "overall": {
+        "ttft": {
+          "n": 20,
+          "mean": 664,
+          "p50": 646,
+          "p95": 769,
+          "min": 566,
+          "max": 854
+        },
+        "end": {
+          "n": 20,
+          "mean": 1002,
+          "p50": 964,
+          "p95": 1248,
+          "min": 711,
+          "max": 1320
+        },
+        "errors": 0,
+        "successful": 20
+      }
+    }
+  ]
+}

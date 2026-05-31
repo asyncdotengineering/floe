@@ -1,0 +1,42 @@
+[
+  {
+    "id": "p_chen_amy",
+    "mrn": "MRN-100231",
+    "name": { "given": "Amy", "family": "Chen" },
+    "dob": "1981-04-12",
+    "phone": "+1-415-555-2208",
+    "primaryProvider": "dr-chen-l",
+    "allergies": ["penicillin"],
+    "activeMeds": ["lisinopril 10mg"],
+    "appointments": [
+      {
+        "id": "appt_001",
+        "provider": "dr-chen-l",
+        "type": "follow-up",
+        "scheduledFor": "2026-05-27T15:00:00Z",
+        "status": "scheduled",
+        "location": "Cedar Health Main Clinic — Room 204"
+      }
+    ]
+  },
+  {
+    "id": "p_rivera_jose",
+    "mrn": "MRN-100410",
+    "name": { "given": "Jose", "family": "Rivera" },
+    "dob": "1957-09-03",
+    "phone": "+1-415-555-2410",
+    "primaryProvider": "dr-park-h",
+    "allergies": [],
+    "activeMeds": ["metformin 500mg", "atorvastatin 20mg"],
+    "appointments": [
+      {
+        "id": "appt_002",
+        "provider": "dr-park-h",
+        "type": "annual-physical",
+        "scheduledFor": "2026-06-04T14:30:00Z",
+        "status": "scheduled",
+        "location": "Cedar Health Main Clinic — Room 105"
+      }
+    ]
+  }
+]

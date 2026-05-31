@@ -1,0 +1,30 @@
+{
+  "name": "@floe/example-ecommerce-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "start": "tsx server.ts",
+    "test:bench": "tsx test/bench.test.ts",
+    "seed:catalog": "tsx bin/seed-catalog.ts",
+    "vercel-build": "rm -f api/handler.mjs && npx esbuild api/build-entry.ts --bundle --platform=node --format=esm --target=node22 --outfile=api/handler.mjs --external:@libsql/client --banner:js=\"import{createRequire}from'module';const require=createRequire(import.meta.url);\" && echo 'export { default } from \"./handler.mjs\";' > api/index.ts"
+  },
+  "dependencies": {
+    "@floe/runtime": "workspace:*",
+    "@floe/server-bootstrap": "workspace:*",
+    "@floe/adapter-web": "workspace:*",
+    "@floe/state-libsql": "workspace:*",
+    "@hono/node-server": "^1.19.14",
+    "@libsql/client": "^0.15.10",
+    "valibot": "^1.1.0"
+  },
+  "devDependencies": {
+    "@floe/bench-harness": "workspace:*",
+    "@types/node": "^22.10.10",
+    "esbuild": "^0.24.0",
+    "tsx": "^4.22.3",
+    "typescript": "^5.9.3"
+  },
+  "engines": { "node": ">=22.18.0" }
+}

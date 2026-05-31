@@ -1,0 +1,45 @@
+[
+  {
+    "id": "LIN-101",
+    "project": "IT",
+    "title": "MacBook keyboard replacement for u_dave",
+    "description": "Spacebar sticking; under warranty until 2027-08.",
+    "state": "in_progress",
+    "priority": "P2",
+    "assignee": "u_carol",
+    "requester": "u_dave",
+    "createdAt": "2026-05-19T14:00:00Z",
+    "updatedAt": "2026-05-21T09:30:00Z",
+    "comments": [
+      { "author": "u_carol", "at": "2026-05-20T10:00:00Z", "body": "Ordered replacement; ETA Wed." }
+    ]
+  },
+  {
+    "id": "LIN-102",
+    "project": "SECURITY",
+    "title": "Staging DB access request — migration project",
+    "description": "Requester needs RW access to staging.users + staging.orders for the 0042 migration. Expected duration: 5 days.",
+    "state": "todo",
+    "priority": "P2",
+    "assignee": null,
+    "requester": "u_alice",
+    "createdAt": "2026-05-22T11:15:00Z",
+    "updatedAt": "2026-05-22T11:15:00Z",
+    "comments": []
+  },
+  {
+    "id": "LIN-103",
+    "project": "INFRA",
+    "title": "Pager fires every 2h — Redis memory pressure",
+    "description": "Cache eviction is hitting 80% in the EU region.",
+    "state": "in_progress",
+    "priority": "P1",
+    "assignee": "u_alice",
+    "requester": "u_alice",
+    "createdAt": "2026-05-23T22:00:00Z",
+    "updatedAt": "2026-05-24T07:00:00Z",
+    "comments": [
+      { "author": "u_alice", "at": "2026-05-23T22:30:00Z", "body": "Started investigation; suspect a cache key spike from yesterday's deploy." }
+    ]
+  }
+]

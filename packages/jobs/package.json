@@ -1,0 +1,33 @@
+{
+  "name": "@floe/jobs",
+  "version": "0.1.0",
+  "description": "Background-worker primitive for Floe Assistants. Enqueue work, runner processes it off the user's turn, the LLM checks status / fetches results via the bundled MCP. Fills the gap left by Flue's sync-only task() and Agno Teams' leader-blocks-on-members default.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./mcp": "./src/mcp.ts"
+  },
+  "files": ["src", "README.md"],
+  "scripts": {
+    "build": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@floe/runtime": "workspace:*",
+    "@floe/mock-services": "workspace:*"
+  },
+  "dependencies": {
+    "valibot": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.7"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}

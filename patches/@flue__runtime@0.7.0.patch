@@ -1,0 +1,32 @@
+diff --git a/dist/sandbox-BP5YFg8B.mjs b/dist/sandbox-BP5YFg8B.mjs
+index 58a04e24df6cb55da0e1b38f4c0eaa6f0a726930..749171f4b56fb4cf09c61cc55466a6b277e11e4f 100644
+--- a/dist/sandbox-BP5YFg8B.mjs
++++ b/dist/sandbox-BP5YFg8B.mjs
+@@ -1820,6 +1820,27 @@ var Session = class {
+ 		}
+ 	}
+ 	async runTaskForTool(params, tools, inheritedRole, inheritedModel, inheritedThinkingLevel, signal) {
++		// [floe-patch] When the LLM calls `task` from inside an already-active
++		// session operation (e.g. its own prompt loop), runExclusive would
++		// throw "Session is already running prompt" — a cryptic internal error
++		// that surfaces to the LLM as a tool failure and triggers a vague
++		// "technical issue" reply. Return a graceful, actionable tool result
++		// instead so the LLM can recover by answering directly with whatever
++		// other tools it has. See floe/packages/runtime/src/orchestrator/
++		// delegate-tool.ts header for the full context.
++		if (this.activeOperation) {
++			return {
++				content: [{
++					type: "text",
++					text: "The `task` tool is not available from within this context (you are already inside an active session operation: " + this.activeOperation + "). Answer the user directly using the other tools you have available — do not retry `task`."
++				}],
++				details: {
++					unavailable: true,
++					reason: "active_operation",
++					activeOperation: this.activeOperation
++				}
++			};
++		}
+ 		const result = await this.runTask(params.prompt, {
+ 			role: params.role ?? inheritedRole,
+ 			inheritedModel,

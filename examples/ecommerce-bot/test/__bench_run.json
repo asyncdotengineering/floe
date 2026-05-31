@@ -1,0 +1,2916 @@
+{
+  "ranAt": "2026-05-24T08:46:22.372Z",
+  "scenarios": [
+    {
+      "id": "s1-triage-product",
+      "description": "Triage routes a sizing question to the sales agent and the answer cites the catalog."
+    },
+    {
+      "id": "s2-track-order",
+      "description": "Tracks an order via the track-order flow."
+    },
+    {
+      "id": "s3-return-eligible",
+      "description": "Return for a 27-day-old order: 100% refund of $189. Multi-turn — confirm on turn 2."
+    },
+    {
+      "id": "s4-return-50pct",
+      "description": "Return for a 91-day-old order: outside 90-day window → denial branch."
+    },
+    {
+      "id": "s5-pii-redaction",
+      "description": "User shares email + phone — PII redaction validator masks before LLM sees."
+    },
+    {
+      "id": "s6-out-of-domain",
+      "description": "Off-topic query — bot should disclaim and stay on-domain."
+    },
+    {
+      "id": "s7-policy-shipping",
+      "description": "Pulls shipping policy from knowledge base."
+    },
+    {
+      "id": "s8-loyalty",
+      "description": "Pulls loyalty policy from knowledge base."
+    },
+    {
+      "id": "s9-memory-cross-session",
+      "description": "Stores user preference in turn 1; recalls it in a NEW session in turn 2 (same userId)."
+    }
+  ],
+  "reports": [
+    {
+      "model": "google/gemini-3.5-flash",
+      "label": "gemini-3.5-flash (low)",
+      "thinking": "low",
+      "scenarios": [
+        {
+          "scenarioId": "s1-triage-product",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "What size should I get for the Echo Pima T-shirt? I'm usually a medium in regular tees.",
+              "assistantText": "Got it — one sec… Got it — the Echo Pima T-shirt has a relaxed cut, so if you prefer a slimmer fit, you might want to size down to a small [1, 2]. If you like a classic relaxed look, your usual medium will fit beautifully [1]. Would you like to check out the available colors for this shirt?",
+              "ttftMs": 13,
+              "endToEndMs": 2254,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612281685_4"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "What size should I get for the Echo Pima T-shirt? I'm usually a medium in regular tees."
+                  },
+                  "respondingTo": "evt_1779612281685_4"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612281685_4"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "What size should I get for the Echo Pima T-shirt? I'm usually a medium in regular tees."
+                  },
+                  "respondingTo": "evt_1779612281685_4"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 2,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612281685_4"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Got it — the Echo Pima T-shirt has a relaxed cut, so if you prefer a slimmer fit, you might want to size down to a small [1, 2]. If you like a classic relaxed look, your usual medium will fit beautifully [1]. Would you like to check out the available colors for this shirt?",
+                  "respondingTo": "evt_1779612281685_4"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612281685_4"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:44:41.687Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 4148,
+                  "totalOutputTokens": 277,
+                  "totalCostUsd": 0.008715,
+                  "lastTurnLatencyMs": 2242,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "contains(\"echo\")",
+                  "pass": true
+                },
+                {
+                  "name": "semanticContains(\"size\")",
+                  "pass": true
+                },
+                {
+                  "name": "notContains(\"I don't\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 2254
+        },
+        {
+          "scenarioId": "s2-track-order",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "Where is my order ord_2401?",
+              "assistantText": "Got it — one sec… I am looking up the status of your order ord_2401 right now.Got it — I have received your order ID, ord_2401, and I am pulling up the tracking status for you right now.",
+              "ttftMs": 4,
+              "endToEndMs": 12505,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "Where is my order ord_2401?"
+                  },
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "Where is my order ord_2401?"
+                  },
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "flow_enter",
+                  "data": {
+                    "flow": "track-order",
+                    "node": "collect-order-id",
+                    "args": {}
+                  },
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "extraction_submission",
+                  "data": {
+                    "node": "collect-order-id",
+                    "submitted": {
+                      "orderId": "ord_2401"
+                    },
+                    "missing": [],
+                    "complete": true
+                  },
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "collect-order-id",
+                    "to": "lookup-order"
+                  },
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "lookup-order",
+                    "to": "format-tracking"
+                  },
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Your order ord_2401 has shipped and your tracking number is TRK-9923-444.",
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "agent_end",
+                  "reason": "order tracked",
+                  "respondingTo": "evt_1779612283931_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612283931_6"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:44:43.932Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 22161,
+                  "totalOutputTokens": 1401,
+                  "totalCostUsd": 0.04768545,
+                  "lastTurnLatencyMs": 12502,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "enteredFlow(\"track-order\")",
+                  "pass": true
+                },
+                {
+                  "name": "contains(\"ord_2401\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 12505
+        },
+        {
+          "scenarioId": "s3-return-eligible",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "I want to return ord_2240 — the fit was wrong.",
+              "assistantText": "Got it — one sec…  I can help you process that return. Let's look up your order ord_2240 to see what we can do.Got it — I have recorded your return request for order ord_2240 because the fit was wrong.Got it — I have recorded your return request for order ord_2240 because the fit was wrong. Let me look up the details for your order now.",
+              "ttftMs": 6,
+              "endToEndMs": 13824,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "procedure_activated",
+                  "data": {
+                    "name": "return-policy",
+                    "path": "procedures/return-policy.md"
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "I want to return ord_2240 — the fit was wrong."
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "I want to return ord_2240 — the fit was wrong."
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 2,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "flow_enter",
+                  "data": {
+                    "flow": "return",
+                    "node": "collect-order",
+                    "args": {}
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "extraction_submission",
+                  "data": {
+                    "node": "collect-order",
+                    "submitted": {},
+                    "missing": [
+                      "orderId",
+                      "statedReason"
+                    ],
+                    "complete": false,
+                    "emptyRetry": true
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "extraction_submission",
+                  "data": {
+                    "node": "collect-order",
+                    "submitted": {
+                      "orderId": "ord_2240",
+                      "statedReason": "the fit was wrong"
+                    },
+                    "missing": [],
+                    "complete": true
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "collect-order",
+                    "to": "lookup-order"
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "lookup-order",
+                    "to": "ask-confirmation"
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Since ord_2240 is within the 30-day window, you are eligible for a full refund of $189. Shall I confirm and process the refund?",
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "ask-confirmation",
+                    "to": "capture-confirmation"
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612296438_8"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:44:56.440Z",
+                "turnCount": 1,
+                "activeFlow": {
+                  "name": "return",
+                  "nodeName": "capture-confirmation",
+                  "data": {
+                    "orderId": "ord_2240",
+                    "statedReason": "the fit was wrong",
+                    "totalUsd": 189,
+                    "ageDays": 27,
+                    "refundAmountUsd": 189,
+                    "refundType": "a full refund",
+                    "eligibilityReasoning": "Order is 27 days old — within the 30-day full-refund window."
+                  },
+                  "enteredAt": "2026-05-24T08:44:58.897Z"
+                },
+                "activeProcedures": [
+                  {
+                    "path": "procedures/return-policy.md",
+                    "matchedAt": "2026-05-24T08:44:56.683Z"
+                  }
+                ],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 21576,
+                  "totalOutputTokens": 1692,
+                  "totalCostUsd": 0.05003579999999999,
+                  "lastTurnLatencyMs": 13819,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "enteredFlow(\"return\")",
+                  "pass": true
+                },
+                {
+                  "name": "contains(\"189\")",
+                  "pass": false,
+                  "message": "final reply did not contain \"189\""
+                },
+                {
+                  "name": "matches(confirm|process|go ahead|shall i|want me to)",
+                  "pass": true
+                },
+                {
+                  "name": "notContains(\"outside\")",
+                  "pass": true
+                }
+              ]
+            },
+            {
+              "turnIndex": 1,
+              "userMessage": "yes, please process it",
+              "assistantText": "Got it — one sec… ",
+              "ttftMs": 6,
+              "endToEndMs": 4480,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 2,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612310263_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "yes, please process it"
+                  },
+                  "respondingTo": "evt_1779612310263_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612310263_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "yes, please process it"
+                  },
+                  "respondingTo": "evt_1779612310263_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612310263_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "capture-confirmation",
+                    "to": "process-refund"
+                  },
+                  "respondingTo": "evt_1779612310263_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "process-refund",
+                    "to": "refund-confirmed"
+                  },
+                  "respondingTo": "evt_1779612310263_10"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "I have processed your refund rtn_shtvjs6f for $189.",
+                  "respondingTo": "evt_1779612310263_10"
+                },
+                {
+                  "type": "agent_end",
+                  "reason": "return processed",
+                  "respondingTo": "evt_1779612310263_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612310263_10"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:44:56.440Z",
+                "turnCount": 2,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 34154,
+                  "totalOutputTokens": 2133,
+                  "totalCostUsd": 0.07287179999999999,
+                  "lastTurnLatencyMs": 4474,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "matches(refund|processed|return id|rtn_)",
+                  "pass": false,
+                  "message": "final reply did not match refund|processed|return id|rtn_"
+                },
+                {
+                  "name": "notContains(\"cancel\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": false,
+          "totalLatencyMs": 18304
+        },
+        {
+          "scenarioId": "s4-return-50pct",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "I want to return ord_2310, the shirts shrunk.",
+              "assistantText": "Got it — one sec… Got it — I have recorded your return request for order ord_2310 because the shirts shrunk. Let me look up the details for this order to see how we can proceed.Got it — I have recorded your return request for order ord_2310 because the shirts shrunk. Let me look up the details for this order to see how we can proceed.",
+              "ttftMs": 4,
+              "endToEndMs": 14533,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "procedure_activated",
+                  "data": {
+                    "name": "return-policy",
+                    "path": "procedures/return-policy.md"
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "I want to return ord_2310, the shirts shrunk."
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "I want to return ord_2310, the shirts shrunk."
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 2,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "flow_enter",
+                  "data": {
+                    "flow": "return",
+                    "node": "collect-order",
+                    "args": {}
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "extraction_submission",
+                  "data": {
+                    "node": "collect-order",
+                    "submitted": {},
+                    "missing": [
+                      "orderId",
+                      "statedReason"
+                    ],
+                    "complete": false,
+                    "emptyRetry": true
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "extraction_submission",
+                  "data": {
+                    "node": "collect-order",
+                    "submitted": {
+                      "orderId": "ord_2310",
+                      "statedReason": "the shirts shrunk"
+                    },
+                    "missing": [],
+                    "complete": true
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "collect-order",
+                    "to": "lookup-order"
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "lookup-order",
+                    "to": "explain-denial"
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Order ord_2310 is past our 90-day return window since it was delivered 91 days ago. I can either escalate this to a billing manager to see if an exception is possible, or issue a $25 store credit if the item is defective — which option works better for you?",
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "agent_end",
+                  "reason": "return denied per policy",
+                  "respondingTo": "evt_1779612314741_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612314741_12"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:14.743Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [
+                  {
+                    "path": "procedures/return-policy.md",
+                    "matchedAt": "2026-05-24T08:45:14.961Z"
+                  }
+                ],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 20794,
+                  "totalOutputTokens": 1895,
+                  "totalCostUsd": 0.0500796,
+                  "lastTurnLatencyMs": 14524,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "enteredFlow(\"return\")",
+                  "pass": true
+                },
+                {
+                  "name": "mentionsNode(\"explain-denial\")",
+                  "pass": true
+                },
+                {
+                  "name": "notContains(\"100%\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 14533
+        },
+        {
+          "scenarioId": "s5-pii-redaction",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "My email is alice@example.com and phone 415-555-1234, please update my account.",
+              "assistantText": "Got it — one sec… Got it — I have noted your contact preferences and updated your account details. What else can I help you with today?",
+              "ttftMs": 15,
+              "endToEndMs": 1923,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612329282_14"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "My email is alice@example.com and phone 415-555-1234, please update my account."
+                  },
+                  "respondingTo": "evt_1779612329282_14"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612329282_14"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "My email is alice@example.com and phone 415-555-1234, please update my account."
+                  },
+                  "respondingTo": "evt_1779612329282_14"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612329282_14"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Got it — I have noted your contact preferences and updated your account details. What else can I help you with today?",
+                  "respondingTo": "evt_1779612329282_14"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612329282_14"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:29.284Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 4108,
+                  "totalOutputTokens": 143,
+                  "totalCostUsd": 0.007449,
+                  "lastTurnLatencyMs": 1912,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "notContains(\"alice@example.com\")",
+                  "pass": true
+                },
+                {
+                  "name": "notContains(\"415-555-1234\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 1923
+        },
+        {
+          "scenarioId": "s6-out-of-domain",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "What's the weather in Tokyo right now?",
+              "assistantText": "Got it — one sec… I'm the Acme Threads concierge — happy to help with anything apparel-related though.",
+              "ttftMs": 4,
+              "endToEndMs": 1620,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612331198_16"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "What's the weather in Tokyo right now?"
+                  },
+                  "respondingTo": "evt_1779612331198_16"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612331198_16"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "What's the weather in Tokyo right now?"
+                  },
+                  "respondingTo": "evt_1779612331198_16"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612331198_16"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "I'm the Acme Threads concierge — happy to help with anything apparel-related though.",
+                  "respondingTo": "evt_1779612331198_16"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612331198_16"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:31.199Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 4055,
+                  "totalOutputTokens": 99,
+                  "totalCostUsd": 0.0069735000000000005,
+                  "lastTurnLatencyMs": 1616,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "semanticNotContains(\"Tokyo\")",
+                  "pass": true
+                },
+                {
+                  "name": "contains(\"Acme\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 1620
+        },
+        {
+          "scenarioId": "s7-policy-shipping",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "How much is shipping on an order under $50?",
+              "assistantText": "Got it — one sec… Standard shipping is a flat $7 for orders under $50 [3]. Would you like to check the rates for express or international shipping instead?",
+              "ttftMs": 5,
+              "endToEndMs": 2310,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612332819_18"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "How much is shipping on an order under $50?"
+                  },
+                  "respondingTo": "evt_1779612332819_18"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612332819_18"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "How much is shipping on an order under $50?"
+                  },
+                  "respondingTo": "evt_1779612332819_18"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612332819_18"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Standard shipping is a flat $7 for orders under $50 [3]. Would you like to check the rates for express or international shipping instead?",
+                  "respondingTo": "evt_1779612332819_18"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612332819_18"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:32.820Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 4050,
+                  "totalOutputTokens": 289,
+                  "totalCostUsd": 0.008676,
+                  "lastTurnLatencyMs": 2305,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "contains(\"$7\")",
+                  "pass": true
+                },
+                {
+                  "name": "contains(\"shipping\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 2310
+        },
+        {
+          "scenarioId": "s8-loyalty",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "How do loyalty points work — what do I get?",
+              "assistantText": "Got it — one sec… Sure thing — you earn one point per dollar spent on full-price items, and half a point per dollar on sale items [2]. Every hundred points can be redeemed for five dollars off any order, stackable up to fifty dollars [2]. Higher point totals also unlock bronze, silver, and gold tiers that feature shipping discounts, early sale access, and annual gifts [2]. Would you like me to check your current tier status?",
+              "ttftMs": 3,
+              "endToEndMs": 3643,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612335128_20"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "How do loyalty points work — what do I get?"
+                  },
+                  "respondingTo": "evt_1779612335128_20"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612335128_20"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "How do loyalty points work — what do I get?"
+                  },
+                  "respondingTo": "evt_1779612335128_20"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 1,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612335128_20"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Sure thing — you earn one point per dollar spent on full-price items, and half a point per dollar on sale items [2]. Every hundred points can be redeemed for five dollars off any order, stackable up to fifty dollars [2]. Higher point totals also unlock bronze, silver, and gold tiers that feature shipping discounts, early sale access, and annual gifts [2]. Would you like me to check your current tier status?",
+                  "respondingTo": "evt_1779612335128_20"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612335128_20"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:35.129Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 4116,
+                  "totalOutputTokens": 691,
+                  "totalCostUsd": 0.012393000000000001,
+                  "lastTurnLatencyMs": 3640,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "contains(\"point\")",
+                  "pass": true
+                },
+                {
+                  "name": "semanticMatches(\\$5 off|100 points|1 point per dollar|tier)",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 3643
+        },
+        {
+          "scenarioId": "s9-memory-cross-session",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "Hi, I'm Alice. I prefer the Forest colorway and size M in jackets — keep that in mind.",
+              "assistantText": "Got it — one sec… Got it — I've noted that you prefer the Forest colorway and size medium for jackets. Are you looking to browse our current jacket collection, or did you have a specific piece in mind today?",
+              "ttftMs": 3,
+              "endToEndMs": 2286,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612338772_22"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "Hi, I'm Alice. I prefer the Forest colorway and size M in jackets — keep that in mind."
+                  },
+                  "respondingTo": "evt_1779612338772_22"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612338772_22"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "Hi, I'm Alice. I prefer the Forest colorway and size M in jackets — keep that in mind."
+                  },
+                  "respondingTo": "evt_1779612338772_22"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 2,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612338772_22"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Got it — I've noted that you prefer the Forest colorway and size medium for jackets. Are you looking to browse our current jacket collection, or did you have a specific piece in mind today?",
+                  "respondingTo": "evt_1779612338772_22"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612338772_22"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:38.773Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 4097,
+                  "totalOutputTokens": 269,
+                  "totalCostUsd": 0.0085665,
+                  "lastTurnLatencyMs": 2281,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "contains(\"forest\")",
+                  "pass": true
+                }
+              ]
+            },
+            {
+              "turnIndex": 1,
+              "userMessage": "I want to look at a new jacket — what color do you have in mind for me?",
+              "assistantText": "Got it — one sec… Sure thing — since you love the Forest colorway, the Atlas Down Jacket in Forest would be a perfect fit [1]. It runs slightly slim through the chest if you plan to layer it over a thick sweater, but we have your preferred size medium in stock [1, 2]. Would you like to check it out?",
+              "ttftMs": 6,
+              "endToEndMs": 2198,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 2,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612341058_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "I want to look at a new jacket — what color do you have in mind for me?"
+                  },
+                  "respondingTo": "evt_1779612341058_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612341058_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "I want to look at a new jacket — what color do you have in mind for me?"
+                  },
+                  "respondingTo": "evt_1779612341058_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 2,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612341058_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "memory_preloaded",
+                  "data": {
+                    "userId": "alice-9",
+                    "charCount": 569
+                  },
+                  "respondingTo": "evt_1779612341058_24"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Sure thing — since you love the Forest colorway, the Atlas Down Jacket in Forest would be a perfect fit [1]. It runs slightly slim through the chest if you plan to layer it over a thick sweater, but we have your preferred size medium in stock [1, 2]. Would you like to check it out?",
+                  "respondingTo": "evt_1779612341058_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612341058_24"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:38.773Z",
+                "turnCount": 2,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 8720,
+                  "totalOutputTokens": 491,
+                  "totalCostUsd": 0.017499,
+                  "lastTurnLatencyMs": 2194,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "contains(\"forest\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 4484
+        }
+      ],
+      "passed": 8,
+      "totalAssertions": 24,
+      "passedAssertions": 22,
+      "allTtft": [
+        3,
+        3,
+        4,
+        4,
+        4,
+        5,
+        6,
+        6,
+        6,
+        13,
+        15
+      ],
+      "allEnd": [
+        1620,
+        1923,
+        2198,
+        2254,
+        2286,
+        2310,
+        3643,
+        4480,
+        12505,
+        13824,
+        14533
+      ]
+    },
+    {
+      "model": "openai/gpt-4.1-mini",
+      "label": "gpt-4.1-mini",
+      "thinking": "off",
+      "scenarios": [
+        {
+          "scenarioId": "s1-triage-product",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "What size should I get for the Echo Pima T-shirt? I'm usually a medium in regular tees.",
+              "assistantText": "Got it — one sec… Got it — the Echo Pima T-shirt has a relaxed cut, so if you usually wear a medium in regular tees and want a slimmer fit, you should size down to a small. For the typical relaxed look, your usual medium will fit well [1][2].",
+              "ttftMs": 8,
+              "endToEndMs": 1873,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612348308_4"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "What size should I get for the Echo Pima T-shirt? I'm usually a medium in regular tees."
+                  },
+                  "respondingTo": "evt_1779612348308_4"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612348308_4"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "What size should I get for the Echo Pima T-shirt? I'm usually a medium in regular tees."
+                  },
+                  "respondingTo": "evt_1779612348308_4"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 2,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612348308_4"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Got it — the Echo Pima T-shirt has a relaxed cut, so if you usually wear a medium in regular tees and want a slimmer fit, you should size down to a small. For the typical relaxed look, your usual medium will fit well [1][2].",
+                  "respondingTo": "evt_1779612348308_4"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612348308_4"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:48.309Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 3786,
+                  "totalOutputTokens": 57,
+                  "totalCostUsd": 0.0016056000000000002,
+                  "lastTurnLatencyMs": 1864,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "contains(\"echo\")",
+                  "pass": true
+                },
+                {
+                  "name": "semanticContains(\"size\")",
+                  "pass": true
+                },
+                {
+                  "name": "notContains(\"I don't\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 1873
+        },
+        {
+          "scenarioId": "s2-track-order",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "Where is my order ord_2401?",
+              "assistantText": "Got it — one sec… Got it — I'm checking the status of order ord_2401 for you now.You're already asking about order ord_2401. I'm on it—checking the status for you now.",
+              "ttftMs": 4,
+              "endToEndMs": 5263,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612350176_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "Where is my order ord_2401?"
+                  },
+                  "respondingTo": "evt_1779612350176_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612350176_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "Where is my order ord_2401?"
+                  },
+                  "respondingTo": "evt_1779612350176_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612350176_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "flow_enter",
+                  "data": {
+                    "flow": "track-order",
+                    "node": "collect-order-id",
+                    "args": {}
+                  },
+                  "respondingTo": "evt_1779612350176_6"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "You're already asking about order ord_2401. I'm on it—checking the status for you now.",
+                  "respondingTo": "evt_1779612350176_6"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612350176_6"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:50.177Z",
+                "turnCount": 1,
+                "activeFlow": {
+                  "name": "track-order",
+                  "nodeName": "collect-order-id",
+                  "data": {},
+                  "enteredAt": "2026-05-24T08:45:54.061Z"
+                },
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 7340,
+                  "totalOutputTokens": 58,
+                  "totalCostUsd": 0.0034000000000000002,
+                  "lastTurnLatencyMs": 5259,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "enteredFlow(\"track-order\")",
+                  "pass": true
+                },
+                {
+                  "name": "contains(\"ord_2401\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 5263
+        },
+        {
+          "scenarioId": "s3-return-eligible",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "I want to return ord_2240 — the fit was wrong.",
+              "assistantText": "Got it — one sec… Got it — I'll start the return process for order ord_2240 due to fit issues. I'll just need to confirm a few details before proceeding.I’ve noted your order ord_2240 and that the fit was wrong. Just confirming, is there anything else you’d like to add about the reason for the return?",
+              "ttftMs": 5,
+              "endToEndMs": 7213,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "procedure_activated",
+                  "data": {
+                    "name": "return-policy",
+                    "path": "procedures/return-policy.md"
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "I want to return ord_2240 — the fit was wrong."
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "I want to return ord_2240 — the fit was wrong."
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 2,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "flow_enter",
+                  "data": {
+                    "flow": "return",
+                    "node": "collect-order",
+                    "args": {}
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "extraction_submission",
+                  "data": {
+                    "node": "collect-order",
+                    "submitted": {
+                      "orderId": "ord_2240",
+                      "statedReason": "the fit was wrong"
+                    },
+                    "missing": [],
+                    "complete": true
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "collect-order",
+                    "to": "lookup-order"
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "lookup-order",
+                    "to": "ask-confirmation"
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Good news — order ord_2240 is within our 30-day window, so you're eligible for a full refund of $189. Want me to confirm and process the refund?",
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "ask-confirmation",
+                    "to": "capture-confirmation"
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612355441_8"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:55.442Z",
+                "turnCount": 1,
+                "activeFlow": {
+                  "name": "return",
+                  "nodeName": "capture-confirmation",
+                  "data": {
+                    "orderId": "ord_2240",
+                    "statedReason": "the fit was wrong",
+                    "totalUsd": 189,
+                    "ageDays": 27,
+                    "refundAmountUsd": 189,
+                    "refundType": "a full refund",
+                    "eligibilityReasoning": "Order is 27 days old — within the 30-day full-refund window."
+                  },
+                  "enteredAt": "2026-05-24T08:45:58.347Z"
+                },
+                "activeProcedures": [
+                  {
+                    "path": "procedures/return-policy.md",
+                    "matchedAt": "2026-05-24T08:45:55.653Z"
+                  }
+                ],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 9377,
+                  "totalOutputTokens": 143,
+                  "totalCostUsd": 0.004939600000000001,
+                  "lastTurnLatencyMs": 7208,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "enteredFlow(\"return\")",
+                  "pass": true
+                },
+                {
+                  "name": "contains(\"189\")",
+                  "pass": false,
+                  "message": "final reply did not contain \"189\""
+                },
+                {
+                  "name": "matches(confirm|process|go ahead|shall i|want me to)",
+                  "pass": true
+                },
+                {
+                  "name": "notContains(\"outside\")",
+                  "pass": true
+                }
+              ]
+            },
+            {
+              "turnIndex": 1,
+              "userMessage": "yes, please process it",
+              "assistantText": "Got it — one sec… ",
+              "ttftMs": 5,
+              "endToEndMs": 2770,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 2,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612362653_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "yes, please process it"
+                  },
+                  "respondingTo": "evt_1779612362653_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612362653_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "yes, please process it"
+                  },
+                  "respondingTo": "evt_1779612362653_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612362653_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "capture-confirmation",
+                    "to": "process-refund"
+                  },
+                  "respondingTo": "evt_1779612362653_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "process-refund",
+                    "to": "refund-confirmed"
+                  },
+                  "respondingTo": "evt_1779612362653_10"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Done — refund rtn_bvxbdhyu for $189 on order ord_2240 has been processed.",
+                  "respondingTo": "evt_1779612362653_10"
+                },
+                {
+                  "type": "agent_end",
+                  "reason": "return processed",
+                  "respondingTo": "evt_1779612362653_10"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612362653_10"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:45:55.442Z",
+                "turnCount": 2,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 15234,
+                  "totalOutputTokens": 192,
+                  "totalCostUsd": 0.007540000000000001,
+                  "lastTurnLatencyMs": 2766,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "matches(refund|processed|return id|rtn_)",
+                  "pass": false,
+                  "message": "final reply did not match refund|processed|return id|rtn_"
+                },
+                {
+                  "name": "notContains(\"cancel\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": false,
+          "totalLatencyMs": 9983
+        },
+        {
+          "scenarioId": "s4-return-50pct",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "I want to return ord_2310, the shirts shrunk.",
+              "assistantText": "Got it — one sec… Got it — I’m starting your return process for order ord_2310. Can you tell me how long ago you received it? That helps determine the refund type.I have your order ID ord_2310 and the reason that the shirts shrunk. I'll proceed with this return for you now.",
+              "ttftMs": 4,
+              "endToEndMs": 6214,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "procedure_activated",
+                  "data": {
+                    "name": "return-policy",
+                    "path": "procedures/return-policy.md"
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "I want to return ord_2310, the shirts shrunk."
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "I want to return ord_2310, the shirts shrunk."
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 2,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "flow_enter",
+                  "data": {
+                    "flow": "return",
+                    "node": "collect-order",
+                    "args": {}
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "extraction_submission",
+                  "data": {
+                    "node": "collect-order",
+                    "submitted": {
+                      "orderId": "ord_2310",
+                      "statedReason": "the shirts shrunk"
+                    },
+                    "missing": [],
+                    "complete": true
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "collect-order",
+                    "to": "lookup-order"
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "node_enter",
+                  "data": {
+                    "from": "lookup-order",
+                    "to": "explain-denial"
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Order ord_2310 was delivered 91 days ago, which is past our 90-day return window. I can either escalate this to a billing manager to see if an exception is possible, or issue you $25 in store credit if the shirts arrived with a defect — which works better?",
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "agent_end",
+                  "reason": "return denied per policy",
+                  "respondingTo": "evt_1779612365423_12"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612365423_12"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:46:05.425Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [
+                  {
+                    "path": "procedures/return-policy.md",
+                    "matchedAt": "2026-05-24T08:46:05.657Z"
+                  }
+                ],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 11077,
+                  "totalOutputTokens": 178,
+                  "totalCostUsd": 0.005470800000000001,
+                  "lastTurnLatencyMs": 6211,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "enteredFlow(\"return\")",
+                  "pass": true
+                },
+                {
+                  "name": "mentionsNode(\"explain-denial\")",
+                  "pass": true
+                },
+                {
+                  "name": "notContains(\"100%\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 6214
+        },
+        {
+          "scenarioId": "s5-pii-redaction",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "My email is alice@example.com and phone 415-555-1234, please update my account.",
+              "assistantText": "Got it — one sec… Got it — I've noted your contact preferences. Anything else you'd like me to update for your account?",
+              "ttftMs": 6,
+              "endToEndMs": 1773,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612371640_14"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "My email is alice@example.com and phone 415-555-1234, please update my account."
+                  },
+                  "respondingTo": "evt_1779612371640_14"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612371640_14"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "My email is alice@example.com and phone 415-555-1234, please update my account."
+                  },
+                  "respondingTo": "evt_1779612371640_14"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612371640_14"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Got it — I've noted your contact preferences. Anything else you'd like me to update for your account?",
+                  "respondingTo": "evt_1779612371640_14"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612371640_14"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:46:11.641Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 3765,
+                  "totalOutputTokens": 22,
+                  "totalCostUsd": 0.0015412000000000002,
+                  "lastTurnLatencyMs": 1767,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "notContains(\"alice@example.com\")",
+                  "pass": true
+                },
+                {
+                  "name": "notContains(\"415-555-1234\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 1773
+        },
+        {
+          "scenarioId": "s6-out-of-domain",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "What's the weather in Tokyo right now?",
+              "assistantText": "Got it — one sec… I'm the Acme Threads concierge — happy to help with anything apparel-related though. Looking for layers or travel-ready gear?",
+              "ttftMs": 4,
+              "endToEndMs": 1898,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612373410_16"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "What's the weather in Tokyo right now?"
+                  },
+                  "respondingTo": "evt_1779612373410_16"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612373410_16"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "What's the weather in Tokyo right now?"
+                  },
+                  "respondingTo": "evt_1779612373410_16"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612373410_16"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "I'm the Acme Threads concierge — happy to help with anything apparel-related though. Looking for layers or travel-ready gear?",
+                  "respondingTo": "evt_1779612373410_16"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612373410_16"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:46:13.411Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 3719,
+                  "totalOutputTokens": 26,
+                  "totalCostUsd": 0.0015292,
+                  "lastTurnLatencyMs": 1895,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "semanticNotContains(\"Tokyo\")",
+                  "pass": true
+                },
+                {
+                  "name": "contains(\"Acme\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 1898
+        },
+        {
+          "scenarioId": "s7-policy-shipping",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "How much is shipping on an order under $50?",
+              "assistantText": "Got it — one sec… Got it — standard shipping for orders under $50 is $7 flat, with delivery in 5 to 7 business days [3]. Want to know about express or international options?",
+              "ttftMs": 4,
+              "endToEndMs": 1565,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612375309_18"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "How much is shipping on an order under $50?"
+                  },
+                  "respondingTo": "evt_1779612375309_18"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612375309_18"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "How much is shipping on an order under $50?"
+                  },
+                  "respondingTo": "evt_1779612375309_18"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612375309_18"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Got it — standard shipping for orders under $50 is $7 flat, with delivery in 5 to 7 business days [3]. Want to know about express or international options?",
+                  "respondingTo": "evt_1779612375309_18"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612375309_18"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:46:15.310Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 3704,
+                  "totalOutputTokens": 39,
+                  "totalCostUsd": 0.0015440000000000002,
+                  "lastTurnLatencyMs": 1560,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "contains(\"$7\")",
+                  "pass": true
+                },
+                {
+                  "name": "contains(\"shipping\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 1565
+        },
+        {
+          "scenarioId": "s8-loyalty",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "How do loyalty points work — what do I get?",
+              "assistantText": "Got it — one sec… Got it — you earn 1 point per dollar on full-price items and half a point per dollar on sale items. You can redeem 100 points for $5 off any order, stacking up to $50 total. Your tier status—Bronze, Silver, or Gold—gives perks like shipping discounts or free express shipping depending on your points [2].",
+              "ttftMs": 3,
+              "endToEndMs": 1492,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612376873_20"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "How do loyalty points work — what do I get?"
+                  },
+                  "respondingTo": "evt_1779612376873_20"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612376873_20"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "How do loyalty points work — what do I get?"
+                  },
+                  "respondingTo": "evt_1779612376873_20"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 1,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612376873_20"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Got it — you earn 1 point per dollar on full-price items and half a point per dollar on sale items. You can redeem 100 points for $5 off any order, stacking up to $50 total. Your tier status—Bronze, Silver, or Gold—gives perks like shipping discounts or free express shipping depending on your points [2].",
+                  "respondingTo": "evt_1779612376873_20"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612376873_20"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:46:16.874Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 3766,
+                  "totalOutputTokens": 75,
+                  "totalCostUsd": 0.0016264000000000003,
+                  "lastTurnLatencyMs": 1490,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "contains(\"point\")",
+                  "pass": true
+                },
+                {
+                  "name": "semanticMatches(\\$5 off|100 points|1 point per dollar|tier)",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 1492
+        },
+        {
+          "scenarioId": "s9-memory-cross-session",
+          "turns": [
+            {
+              "turnIndex": 0,
+              "userMessage": "Hi, I'm Alice. I prefer the Forest colorway and size M in jackets — keep that in mind.",
+              "assistantText": "Got it — one sec… Got it — I've noted your preference for the Forest colorway and size M in jackets. Anything specific you're browsing today?",
+              "ttftMs": 2,
+              "endToEndMs": 1559,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 1,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612378365_22"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "Hi, I'm Alice. I prefer the Forest colorway and size M in jackets — keep that in mind."
+                  },
+                  "respondingTo": "evt_1779612378365_22"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612378365_22"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "Hi, I'm Alice. I prefer the Forest colorway and size M in jackets — keep that in mind."
+                  },
+                  "respondingTo": "evt_1779612378365_22"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 2,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612378365_22"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Got it — I've noted your preference for the Forest colorway and size M in jackets. Anything specific you're browsing today?",
+                  "respondingTo": "evt_1779612378365_22"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612378365_22"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:46:18.366Z",
+                "turnCount": 1,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 3744,
+                  "totalOutputTokens": 26,
+                  "totalCostUsd": 0.0015392000000000001,
+                  "lastTurnLatencyMs": 1555,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "contains(\"forest\")",
+                  "pass": true
+                }
+              ]
+            },
+            {
+              "turnIndex": 1,
+              "userMessage": "I want to look at a new jacket — what color do you have in mind for me?",
+              "assistantText": "Got it — one sec… Got it — since you like the Forest colorway and size M, the Atlas Down Jacket in Forest would fit your preference perfectly. It’s a packable mid-weight down jacket great for shoulder-season conditions [1]. Would you like to hear more about it?",
+              "ttftMs": 3,
+              "endToEndMs": 2346,
+              "events": [
+                {
+                  "type": "conversation_event",
+                  "subtype": "turn_start",
+                  "data": {
+                    "turnCount": 2,
+                    "channelName": "web-chat",
+                    "isVoice": false
+                  },
+                  "respondingTo": "evt_1779612379924_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "product-catalog",
+                    "query": "I want to look at a new jacket — what color do you have in mind for me?"
+                  },
+                  "respondingTo": "evt_1779612379924_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "product-catalog",
+                    "count": 4,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612379924_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_query",
+                  "data": {
+                    "source": "policies-kb",
+                    "query": "I want to look at a new jacket — what color do you have in mind for me?"
+                  },
+                  "respondingTo": "evt_1779612379924_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "knowledge_hit",
+                  "data": {
+                    "source": "policies-kb",
+                    "count": 2,
+                    "topScore": 1
+                  },
+                  "respondingTo": "evt_1779612379924_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "memory_preloaded",
+                  "data": {
+                    "userId": "alice-9",
+                    "charCount": 503
+                  },
+                  "respondingTo": "evt_1779612379924_24"
+                },
+                {
+                  "type": "agent_send_text",
+                  "text": "Got it — since you like the Forest colorway and size M, the Atlas Down Jacket in Forest would fit your preference perfectly. It’s a packable mid-weight down jacket great for shoulder-season conditions [1]. Would you like to hear more about it?",
+                  "respondingTo": "evt_1779612379924_24"
+                },
+                {
+                  "type": "conversation_event",
+                  "subtype": "validator_result",
+                  "data": {
+                    "validator": "groundedness",
+                    "phase": "postLLM-async",
+                    "result": {
+                      "ok": true
+                    }
+                  },
+                  "respondingTo": "evt_1779612379924_24"
+                }
+              ],
+              "state": {
+                "version": 1,
+                "assistantName": "support",
+                "channelName": "web-chat",
+                "startedAt": "2026-05-24T08:46:18.366Z",
+                "turnCount": 2,
+                "activeFlow": null,
+                "activeProcedures": [],
+                "pendingTransition": null,
+                "metrics": {
+                  "totalInputTokens": 5902,
+                  "totalOutputTokens": 80,
+                  "totalCostUsd": 0.0026680000000000002,
+                  "lastTurnLatencyMs": 2344,
+                  "interruptionCount": 0
+                }
+              },
+              "assertionResults": [
+                {
+                  "name": "contains(\"forest\")",
+                  "pass": true
+                }
+              ]
+            }
+          ],
+          "allPassed": true,
+          "totalLatencyMs": 3905
+        }
+      ],
+      "passed": 8,
+      "totalAssertions": 24,
+      "passedAssertions": 22,
+      "allTtft": [
+        2,
+        3,
+        3,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        6,
+        8
+      ],
+      "allEnd": [
+        1492,
+        1559,
+        1565,
+        1773,
+        1873,
+        1898,
+        2346,
+        2770,
+        5263,
+        6214,
+        7213
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+# Build context is the monorepo root — keep the COPY traffic small.
+**/node_modules
+**/.next
+**/.output
+**/.nitro
+**/.vinxi
+**/.tanstack
+**/.vite
+**/dist
+.git
+.github
+.handoff
+.agent-browser-spike
+**/test
+**/tests
+**/.env
+**/.env.local
+**/*.log
+.DS_Store
+# Sibling workspace folders we don't need in the image
+apps
+examples
+competitors
+docs
+implementation-notes.md
+.claude
+templates/hearth-bot
+templates/cedar-health
+templates/knowledge-worker
+templates/chief-of-staff

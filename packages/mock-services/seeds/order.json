@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ord_alice_2401",
+    "userId": "u_alice",
+    "items": [
+      { "sku": "MEAL-001", "name": "Forest mushroom risotto kit", "qty": 1 },
+      { "sku": "MEAL-002", "name": "Chickpea masala bowl kit", "qty": 1 }
+    ],
+    "status": "in_transit",
+    "trackingUrl": "https://shipper.example/track/1Z999-2401",
+    "scheduledArrival": "2026-05-25",
+    "deliveredAt": null
+  },
+  {
+    "id": "ord_bob_2310",
+    "userId": "u_bob",
+    "items": [
+      { "sku": "MEAL-003", "name": "Spring salmon teriyaki kit", "qty": 2 }
+    ],
+    "status": "delivered",
+    "trackingUrl": "https://shipper.example/track/1Z999-2310",
+    "scheduledArrival": "2026-05-22",
+    "deliveredAt": "2026-05-22T11:34:00Z"
+  },
+  {
+    "id": "ord_bob_2305",
+    "userId": "u_bob",
+    "items": [
+      { "sku": "MEAL-004", "name": "Roasted chicken sheet-pan kit", "qty": 2 }
+    ],
+    "status": "issue",
+    "trackingUrl": "https://shipper.example/track/1Z999-2305",
+    "scheduledArrival": "2026-05-15",
+    "deliveredAt": "2026-05-15T14:00:00Z",
+    "issueNote": "Customer reports box arrived warm and one kit was leaking."
+  }
+]

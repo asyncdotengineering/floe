@@ -1,0 +1,28 @@
+{
+  "name": "hearth-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "start": "tsx server.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@floe/runtime": "workspace:*",
+    "@floe/server-bootstrap": "workspace:*",
+    "@floe/adapter-voice": "workspace:*",
+    "@floe/mock-services": "workspace:*",
+    "valibot": "^1.1.0"
+  },
+  "devDependencies": {
+    "@floe/bench-harness": "workspace:*",
+    "@types/node": "^22.10.10",
+    "tsx": "^4.22.3",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.7"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}

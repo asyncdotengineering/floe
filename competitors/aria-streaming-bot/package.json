@@ -1,0 +1,29 @@
+{
+  "name": "aria-streaming-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Competitor benchmark: same single-agent streaming workload as @floe/example-streaming-bot, but implemented with @ariaflowagents/core (Vercel AI SDK v6).",
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "test:live": "tsx test/live.test.ts",
+    "test:bench": "tsx test/bench.test.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^3.0.0",
+    "@ai-sdk/openai": "^3.0.0",
+    "@ariaflowagents/core": "^1.0.0",
+    "@ariaflowagents/rag": "^1.0.0",
+    "@ariaflowagents/tools": "^1.0.0",
+    "ai": "^6.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10",
+    "tsx": "^4.22.3",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}

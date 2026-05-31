@@ -1,0 +1,51 @@
+{
+  "ranAt": "2026-05-22T14:15:46.991Z",
+  "rows": [
+    {
+      "id": "ttft-1",
+      "q": "How much does the Pro plan cost?",
+      "ttftMs": 1483,
+      "serverEndMs": 1487,
+      "clientMs": 1497,
+      "deltas": 3,
+      "bytes": 112,
+      "respChars": 112,
+      "streamed": true
+    },
+    {
+      "id": "ttft-2",
+      "q": "What integrations does Acme have with GitHub?",
+      "ttftMs": 1220,
+      "serverEndMs": 1290,
+      "clientMs": 1294,
+      "deltas": 4,
+      "bytes": 250,
+      "respChars": 250,
+      "streamed": true
+    },
+    {
+      "id": "ttft-3",
+      "q": "Is Linux supported?",
+      "ttftMs": 1223,
+      "serverEndMs": 1224,
+      "clientMs": 1227,
+      "deltas": 3,
+      "bytes": 118,
+      "respChars": 118,
+      "streamed": true
+    },
+    {
+      "id": "ttft-4",
+      "q": "Where is EU data stored?",
+      "ttftMs": 1183,
+      "serverEndMs": 1229,
+      "clientMs": 1231,
+      "deltas": 4,
+      "bytes": 220,
+      "respChars": 220,
+      "streamed": true
+    }
+  ],
+  "avgTtftMs": 1277,
+  "avgServerEndMs": 1308
+}

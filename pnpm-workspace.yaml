@@ -1,0 +1,7 @@
+packages:
+  - 'packages/*'
+  - 'examples/*'
+  - 'templates/*'
+  - 'apps/*'
+patchedDependencies:
+  '@flue/runtime@0.7.0': patches/@flue__runtime@0.7.0.patch

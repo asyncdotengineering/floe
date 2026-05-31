@@ -1,0 +1,39 @@
+{
+  "name": "@floe/mock-services",
+  "version": "0.1.0",
+  "description": "Seedable in-memory mock backends + auto-mounting MCP servers for Floe templates. Ships 8 v1 domain services (Okta/Notion/Linear/Subscription/Order/Patient FHIR/Rx/Billing) plus a `defineMockService` primitive for custom domains.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./okta": "./src/services/okta.ts",
+    "./notion": "./src/services/notion.ts",
+    "./linear": "./src/services/linear.ts",
+    "./subscription": "./src/services/subscription.ts",
+    "./order": "./src/services/order.ts",
+    "./patient-fhir": "./src/services/patient-fhir.ts",
+    "./rx": "./src/services/rx.ts",
+    "./billing": "./src/services/billing.ts",
+    "./calendar": "./src/services/calendar.ts",
+    "./email": "./src/services/email.ts"
+  },
+  "files": ["src", "seeds", "README.md"],
+  "scripts": {
+    "build": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "valibot": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.7"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}
